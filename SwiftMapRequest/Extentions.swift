@@ -11,11 +11,12 @@ import UIKit
 import CoreLocation
 
 //MARK: Helper
-extension ViewController {
+extension ViewController: UpdateDataDeligate {
     func configureMap() {
         self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
         self.locationManager.requestWhenInUseAuthorization()
         self.locationManager.startUpdatingLocation()
+        apiManager.artworkFor(lat: (self.locationManager.location?.coordinate.latitude)!, lng: (self.locationManager.location?.coordinate.longitude)!)
     }
     func initSearchController () {
         let locationSearchTable = storyboard!.instantiateViewController(withIdentifier: "LocationSearchTable") as! LocationSearchTable
@@ -30,5 +31,9 @@ extension ViewController {
         definesPresentationContext = true
         locationSearchTable.mapView = mapView
         locationSearchTable.handleMapSearchDelegate = self
+    }
+    
+    func updateMapInfo(artworks: [Artwork]) {
+        self.mapView.addAnnotations(artworks)
     }
 }

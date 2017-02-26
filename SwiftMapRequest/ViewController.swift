@@ -15,6 +15,7 @@ protocol HandleMapSearch {
 
 class ViewController: UIViewController {
 
+    let apiManager = APIManager()
     var resultSearchController:UISearchController? = nil
     var locationManager:CLLocationManager = CLLocationManager()
     @IBOutlet weak var mapView: MKMapView!
@@ -30,6 +31,7 @@ class ViewController: UIViewController {
         locationManager.delegate = self
         self.configureMap()
         self.initSearchController()
+        self.apiManager.deligate = self
     }
 }
 
@@ -70,6 +72,7 @@ extension ViewController: HandleMapSearch {
         let span = MKCoordinateSpanMake(0.05, 0.05)
         let region = MKCoordinateRegionMake(placemark.coordinate, span)
         mapView.setRegion(region, animated: true)
+        apiManager.artworkFor(lat: placemark.coordinate.latitude, lng: placemark.coordinate.longitude)
     }
 }
 //MARK: MapKit

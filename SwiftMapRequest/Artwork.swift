@@ -14,13 +14,11 @@ class Artwork:NSObject {
     
     let title: String?
     let locationName: String
-    let discipline: String
     let coordinate: CLLocationCoordinate2D
     
-    init(title: String, locationName: String, discipline:String, coordinate:CLLocationCoordinate2D) {
+    init(title: String, locationName: String, coordinate:CLLocationCoordinate2D) {
         self.title = title
         self.locationName = locationName
-        self.discipline = discipline
         self.coordinate = coordinate
         
         super.init()
@@ -35,14 +33,7 @@ class Artwork:NSObject {
 extension Artwork: MKAnnotation {
     
     func pinTintColor() -> UIColor {
-        switch discipline {
-        case "Sculpture", "Plaque":
-            return MKPinAnnotationView.redPinColor()
-        case "Mural", "Monument":
-            return MKPinAnnotationView.purplePinColor()
-        default:
-            return MKPinAnnotationView.greenPinColor()
-        }
+        return MKPinAnnotationView.purplePinColor()
     }
     
     func mapItem() -> MKMapItem {

@@ -71,7 +71,6 @@ extension LocationSearchTable {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let selectedItem = matchingItems[indexPath.row].placemark
         handleMapSearchDelegate?.dropPinZoomIn(placemark: selectedItem)
-        API.sharedInstance.artworkFor(lat: selectedItem.coordinate.latitude, lng: selectedItem.coordinate.longitude)
         dismiss(animated: true, completion: nil)
     }
 }

@@ -15,8 +15,9 @@
 		AE3F3FDC1E61613000D95631 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE3F3FDB1E61613000D95631 /* CoreLocation.framework */; };
 		AE3F3FDE1E61613E00D95631 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE3F3FDD1E61613E00D95631 /* MapKit.framework */; };
 		AE3F3FE21E61823400D95631 /* LocationSearchTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE3F3FE11E61823400D95631 /* LocationSearchTable.swift */; };
-		AE3F3FE41E618EB300D95631 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE3F3FE31E618EB300D95631 /* API.swift */; };
+		AE3F3FE41E618EB300D95631 /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE3F3FE31E618EB300D95631 /* APIManager.swift */; };
 		AE3F3FEC1E6190C200D95631 /* Extentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE3F3FEB1E6190C200D95631 /* Extentions.swift */; };
+		AE3F3FEE1E61E83700D95631 /* JSONManger.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE3F3FED1E61E83700D95631 /* JSONManger.swift */; };
 		AE4E06DB1E60AA780074471A /* Artwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE4E06DA1E60AA780074471A /* Artwork.swift */; };
 /* End PBXBuildFile section */
 
@@ -31,8 +32,9 @@
 		AE3F3FDB1E61613000D95631 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		AE3F3FDD1E61613E00D95631 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		AE3F3FE11E61823400D95631 /* LocationSearchTable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationSearchTable.swift; sourceTree = "<group>"; };
-		AE3F3FE31E618EB300D95631 /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
+		AE3F3FE31E618EB300D95631 /* APIManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIManager.swift; sourceTree = "<group>"; };
 		AE3F3FEB1E6190C200D95631 /* Extentions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extentions.swift; sourceTree = "<group>"; };
+		AE3F3FED1E61E83700D95631 /* JSONManger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONManger.swift; sourceTree = "<group>"; };
 		AE4E06DA1E60AA780074471A /* Artwork.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Artwork.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -125,8 +127,9 @@
 		AE3F3FE91E618F4700D95631 /* Helper */ = {
 			isa = PBXGroup;
 			children = (
-				AE3F3FE31E618EB300D95631 /* API.swift */,
+				AE3F3FE31E618EB300D95631 /* APIManager.swift */,
 				AE3F3FEB1E6190C200D95631 /* Extentions.swift */,
+				AE3F3FED1E61E83700D95631 /* JSONManger.swift */,
 			);
 			name = Helper;
 			sourceTree = "<group>";
@@ -215,10 +218,11 @@
 			files = (
 				7C0B1BD11E608DC600E4927E /* ViewController.swift in Sources */,
 				AE3F3FE21E61823400D95631 /* LocationSearchTable.swift in Sources */,
+				AE3F3FEE1E61E83700D95631 /* JSONManger.swift in Sources */,
 				AE3F3FEC1E6190C200D95631 /* Extentions.swift in Sources */,
 				7C0B1BCF1E608DC600E4927E /* AppDelegate.swift in Sources */,
 				AE4E06DB1E60AA780074471A /* Artwork.swift in Sources */,
-				AE3F3FE41E618EB300D95631 /* API.swift in Sources */,
+				AE3F3FE41E618EB300D95631 /* APIManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
