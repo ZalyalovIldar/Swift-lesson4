@@ -17,21 +17,23 @@ class ViewController: UIViewController {
 
     let apiManager = APIManager()
     var resultSearchController:UISearchController? = nil
-    var locationManager:CLLocationManager = CLLocationManager()
+    let locationManager:CLLocationManager = CLLocationManager()
+    
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var toolBar: UIToolbar!
     @IBOutlet weak var userLocationButton: MKUserTrackingBarButtonItem! {
         didSet {
-            userLocationButton.mapView = self.mapView;
+            userLocationButton.mapView = self.mapView
         }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        locationManager.delegate = self
+        self.locationManager.delegate = self
+        self.apiManager.deligate = self
+        
         self.configureMap()
         self.initSearchController()
-        self.apiManager.deligate = self
     }
 }
 
@@ -51,7 +53,7 @@ extension ViewController:CLLocationManagerDelegate {
     }
     
     func centerMapOnLocation(_ location: CLLocation) {
-        let regionRadius: CLLocationDistance = 1000
+        let regionRadius: CLLocationDistance = 500
         let coordinateRegion = MKCoordinateRegionMakeWithDistance(location.coordinate, regionRadius * 2.0, regionRadius * 2.0)
         self.mapView.setRegion(coordinateRegion, animated: true)
     }
@@ -60,19 +62,17 @@ extension ViewController:CLLocationManagerDelegate {
 //MARK: Search protocol extension
 extension ViewController: HandleMapSearch {
     func dropPinZoomIn(placemark:MKPlacemark){
-        mapView.removeAnnotations(mapView.annotations)
         let annotation = MKPointAnnotation()
         annotation.coordinate = placemark.coordinate
         annotation.title = placemark.name
-        if let city = placemark.locality,
-            let state = placemark.administrativeArea {
+        if let city = placemark.locality, let state = placemark.administrativeArea {
             annotation.subtitle = "\(city) \(state)"
         }
         mapView.addAnnotation(annotation)
         let span = MKCoordinateSpanMake(0.05, 0.05)
         let region = MKCoordinateRegionMake(placemark.coordinate, span)
-        mapView.setRegion(region, animated: true)
-        apiManager.artworkFor(lat: placemark.coordinate.latitude, lng: placemark.coordinate.longitude)
+        self.mapView.setRegion(region, animated: true)
+        self.apiManager.artworkFor(lat: placemark.coordinate.latitude, lng: placemark.coordinate.longitude)
     }
 }
 //MARK: MapKit
@@ -87,6 +87,7 @@ extension ViewController: MKMapViewDelegate {
                 view = dequeuedView
             } else {
                 view = MKPinAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+                view.pinTintColor = annotation.pinTintColor()
                 view.canShowCallout = true
                 view.calloutOffset = CGPoint(x: -5, y: 5)
                 view.rightCalloutAccessoryView = UIButton(type: .detailDisclosure) as UIView

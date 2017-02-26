@@ -16,7 +16,7 @@ class APIManager {
     
     var deligate:UpdateDataDeligate!
     
-    let googleApiURL = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?key=AIzaSyAIPGNUQscK8v_9DH19hOgM_voyFiks6go&language=ru&radius=50000&types=point_of_interest&location="
+    let googleApiURL = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?key=AIzaSyAIPGNUQscK8v_9DH19hOgM_voyFiks6go&language=ru&radius=500000&types=art_gallery&location="
     
     func artworkFor(lat:Double, lng:Double){
         let strURL = googleApiURL+"\(lat),\(lng)"
@@ -26,10 +26,10 @@ class APIManager {
     func setRequest(_ strUrl:String) {
         let url = URL(string:strUrl)
         var request = URLRequest(url: url!)
-        request.httpMethod = "POST"
+        request.httpMethod = "GET"
         let session = URLSession.shared
         
-        let task = session.dataTask(with: request) {data,request,error in
+        session.dataTask(with: request) {data,request,error in
             if(error != nil){
                 print(error?.localizedDescription ?? "Undeclared Error")
             }else{
@@ -37,14 +37,12 @@ class APIManager {
                     let jsonDict = try JSONSerialization.jsonObject(with: data!, options:.allowFragments) as? [String : AnyObject]
                     let arr = JSONManager.getArtworksArray(from: jsonDict!)
                     DispatchQueue.main.async {
-                        print(arr[0].locationName)
                         self.deligate.updateMapInfo(artworks: arr)
                     }
                 }catch let error as NSError{
                     print(error)
                 }
             }
-        }
-        task.resume()
+        }.resume()
     }
 }
