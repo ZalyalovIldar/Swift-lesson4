@@ -5,21 +5,146 @@
 //  Created by Ildar Zalyalov on 24.02.17.
 //  Copyright © 2017 com.personal.ildar. All rights reserved.
 //
-
+import MapKit
 import UIKit
 
-class ViewController: UIViewController {
+protocol HandleMapSearch {
+    func dropPinZoomIn(placemark: MKPlacemark)
+}
 
+class ViewController: UIViewController{
+    @IBOutlet weak var mapView: MKMapView!
+    let locationManager = CLLocationManager()
+    var selectedPin: MKPlacemark? = nil
+    var resultSearchController: UISearchController? = nil
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+    
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
+        locationManager.requestWhenInUseAuthorization()
+        locationManager.requestLocation()
+        
+        let locationSearchTable = storyboard!.instantiateViewController(withIdentifier: "LocationSearchTable") as! LocationSearchTable
+        resultSearchController = UISearchController(searchResultsController: locationSearchTable)
+        resultSearchController?.searchResultsUpdater = locationSearchTable
+        
+        
+        let searchBar = resultSearchController!.searchBar
+        searchBar.sizeToFit()
+        searchBar.placeholder = "Search city"
+        navigationItem.titleView = resultSearchController?.searchBar
+        resultSearchController?.hidesNavigationBarDuringPresentation = false
+        resultSearchController?.dimsBackgroundDuringPresentation = true
+        definesPresentationContext = true
+        locationSearchTable.mapView = mapView
+        locationSearchTable.handleMapSearchDelegate = self
+        
+        dropPinZoomIn(placemark: MKPlacemark.init(coordinate: CLLocationCoordinate2D.init(latitude: 55.7887400, longitude: 49.1221400), addressDictionary: [:]))
+     
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    
+    func getDirections(){
+        if let selectedPin = selectedPin {
+            let mapItem = MKMapItem(placemark: selectedPin)
+            let launchOptions = [MKLaunchOptionsDirectionsModeKey : MKLaunchOptionsDirectionsModeDriving]
+            mapItem.openInMaps(launchOptions: launchOptions)
+        }
     }
-
-
+    
+    
+    @IBAction func myPositionButtonAction(_ sender: UIButton) {
+        locationManager.requestLocation()
+    }
 }
+
+
+
+
+extension ViewController : CLLocationManagerDelegate {
+    private func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
+        if status == .authorizedWhenInUse {
+            locationManager.requestLocation()
+        }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        if let location = locations.first {
+            
+            let span = MKCoordinateSpanMake(0.05, 0.05)
+            let region = MKCoordinateRegion(center: location.coordinate, span: span)
+            mapView.setRegion(region, animated: true)
+        }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        ErrorAllert(alertTitle: "Connection problems", message: "Check your internet", actionTitle: "ok", controller: UIApplication.getTopViewController()!)
+    }
+}
+
+
+
+
+
+extension ViewController: HandleMapSearch {
+    func dropPinZoomIn(placemark: MKPlacemark){
+        selectedPin = placemark
+        mapView.removeAnnotations(mapView.annotations)
+        let annotation = MKPointAnnotation()
+        annotation.coordinate = placemark.coordinate
+        annotation.title = placemark.name
+        if let city = placemark.locality,
+            let state = placemark.administrativeArea {
+            annotation.subtitle = "\(city) \(state)"
+        }
+        mapView.addAnnotation(annotation)
+        let span = MKCoordinateSpanMake(0.05, 0.05)
+        let region = MKCoordinateRegionMake(placemark.coordinate, span)
+        mapView.setRegion(region, animated: true)
+        
+        
+        let cordinata = CordinateWithRadiuSstruct.init(latitude: placemark.coordinate.latitude, longitude: placemark.coordinate.longitude, radius: 20000)
+        
+        
+        let httpRequestResult = HTTPRequest.httpRequest(cordinate: cordinata)
+        guard let LhttpRequestResult = httpRequestResult else{ErrorAllert(alertTitle: "Connection problems", message: "Plese try later", actionTitle: "ok", controller: UIApplication.getTopViewController()!); return}
+        
+        
+        let jsonReaderResult = JSONReader.jsonReader(usableData: LhttpRequestResult)
+        guard let LjsonReaderResult = jsonReaderResult else{ErrorAllert(alertTitle: "Problems with json", message: "Plese try later", actionTitle: "ok", controller: UIApplication.getTopViewController()!); return}
+        
+        
+        for place in LjsonReaderResult {
+            let coordinate = CLLocationCoordinate2D.init(latitude: place.latitude, longitude: place.longitude)
+            let dataForAnnotation = AnnotationDataStruct.init(placeName: place.name, address: place.address, coordinate: coordinate)
+            mapView.addAnnotation(GetAnnotation(data: dataForAnnotation))
+        }
+        
+        
+        
+    }
+}
+
+
+
+extension ViewController : MKMapViewDelegate {
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView?{
+        if annotation is MKUserLocation {
+            return nil
+        }
+        let reuseId = "pin"
+        var pinView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseId) as? MKPinAnnotationView
+        pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: reuseId)
+        pinView?.pinTintColor = UIColor.orange
+        pinView?.canShowCallout = true
+        return pinView
+    }
+}
+
+
+
+
+
+
 
