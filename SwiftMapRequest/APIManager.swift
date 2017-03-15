@@ -11,14 +11,15 @@ import CoreLocation.CLLocation
 
 class APIManager {
     
-//    let APIKey = "AIzaSyDh-HM0OyZpjNW9k7vMXLH1hwij32ByMC0"
+    let APIKey = "AIzaSyDh-HM0OyZpjNW9k7vMXLH1hwij32ByMC0"
+    private let googlePlacesBaseUrl = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?"
     private let googleSightURL = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?key=AIzaSyDh-HM0OyZpjNW9k7vMXLH1hwij32ByMC0&radius=20000&types=zoo|museum|park|movie_theater|art_gallery|painter&location="
-    private let googleGeocodeURL = "https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyDh-HM0OyZpjNW9k7vMXLH1hwij32ByMC0&address="
+    private let googleGeocodeURL = "https://maps.googleapis.com/maps/api/geocode/json?"
 
     
     
     func sightCoordinates(near location:CLLocation, successBlock:@escaping (_ result:[Sight]) -> ()) {
-        let fullURL = (googleSightURL) + "\(location.coordinate.latitude),\(location.coordinate.longitude)"
+        let fullURL = (googlePlacesBaseUrl) + "key=\(APIKey)" + "&radius=20000&types=zoo|museum|park|movie_theater|art_gallery|painter&location=" + "\(location.coordinate.latitude),\(location.coordinate.longitude)"
         
         let correctUrl = fullURL.addingPercentEncoding( withAllowedCharacters: .urlQueryAllowed)!
         let url = URL(string: correctUrl)
@@ -40,7 +41,7 @@ class APIManager {
     }
     
     func geocodeCity(cityName:String, successBlock:@escaping (_ result:CLLocationCoordinate2D?) -> ()){
-        let fullUrl = (googleGeocodeURL) + "\(cityName)"
+        let fullUrl = (googleGeocodeURL) + "key=\(APIKey)" + "&address=\(cityName)"
         let correctURL = fullUrl.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
         let url = URL(string: correctURL)
         var  request = URLRequest(url: url!)

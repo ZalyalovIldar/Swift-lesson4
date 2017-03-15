@@ -12,7 +12,7 @@
 		7C0B1BD41E608DC600E4927E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7C0B1BD21E608DC600E4927E /* Main.storyboard */; };
 		7C0B1BD61E608DC600E4927E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7C0B1BD51E608DC600E4927E /* Assets.xcassets */; };
 		7C0B1BD91E608DC600E4927E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7C0B1BD71E608DC600E4927E /* LaunchScreen.storyboard */; };
-		E110D5EF1E6F3C4500A9B125 /* MapManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E110D5EE1E6F3C4500A9B125 /* MapManager.swift */; };
+		E110D5EF1E6F3C4500A9B125 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E110D5EE1E6F3C4500A9B125 /* Extensions.swift */; };
 		E13DD84A1E66F22C00770064 /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E13DD8491E66F22C00770064 /* APIManager.swift */; };
 		E13DD84C1E6C5E9700770064 /* Sight.swift in Sources */ = {isa = PBXBuildFile; fileRef = E13DD84B1E6C5E9700770064 /* Sight.swift */; };
 /* End PBXBuildFile section */
@@ -25,7 +25,7 @@
 		7C0B1BD51E608DC600E4927E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7C0B1BD81E608DC600E4927E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7C0B1BDA1E608DC600E4927E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		E110D5EE1E6F3C4500A9B125 /* MapManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapManager.swift; sourceTree = "<group>"; };
+		E110D5EE1E6F3C4500A9B125 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		E13DD8491E66F22C00770064 /* APIManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIManager.swift; sourceTree = "<group>"; };
 		E13DD84B1E6C5E9700770064 /* Sight.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Sight.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -60,17 +60,41 @@
 		7C0B1BCD1E608DC600E4927E /* SwiftMapRequest */ = {
 			isa = PBXGroup;
 			children = (
+				E18571881E785C0400423730 /* Controller */,
+				E18571871E785BF800423730 /* View */,
+				E18571861E785BF000423730 /* Model */,
 				7C0B1BCE1E608DC600E4927E /* AppDelegate.swift */,
-				7C0B1BD01E608DC600E4927E /* ViewController.swift */,
-				7C0B1BD21E608DC600E4927E /* Main.storyboard */,
 				7C0B1BD51E608DC600E4927E /* Assets.xcassets */,
-				7C0B1BD71E608DC600E4927E /* LaunchScreen.storyboard */,
 				7C0B1BDA1E608DC600E4927E /* Info.plist */,
-				E13DD8491E66F22C00770064 /* APIManager.swift */,
-				E13DD84B1E6C5E9700770064 /* Sight.swift */,
-				E110D5EE1E6F3C4500A9B125 /* MapManager.swift */,
 			);
 			path = SwiftMapRequest;
+			sourceTree = "<group>";
+		};
+		E18571861E785BF000423730 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				E13DD84B1E6C5E9700770064 /* Sight.swift */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		E18571871E785BF800423730 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				7C0B1BD71E608DC600E4927E /* LaunchScreen.storyboard */,
+				7C0B1BD21E608DC600E4927E /* Main.storyboard */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		E18571881E785C0400423730 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				E13DD8491E66F22C00770064 /* APIManager.swift */,
+				7C0B1BD01E608DC600E4927E /* ViewController.swift */,
+				E110D5EE1E6F3C4500A9B125 /* Extensions.swift */,
+			);
+			name = Controller;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -147,7 +171,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E13DD84A1E66F22C00770064 /* APIManager.swift in Sources */,
-				E110D5EF1E6F3C4500A9B125 /* MapManager.swift in Sources */,
+				E110D5EF1E6F3C4500A9B125 /* Extensions.swift in Sources */,
 				E13DD84C1E6C5E9700770064 /* Sight.swift in Sources */,
 				7C0B1BD11E608DC600E4927E /* ViewController.swift in Sources */,
 				7C0B1BCF1E608DC600E4927E /* AppDelegate.swift in Sources */,

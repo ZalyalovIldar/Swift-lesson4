@@ -1,5 +1,5 @@
 //
-//  MapManager.swift
+//  Extensions.swift
 //  SwiftMapRequest
 //
 //  Created by Наталья on 07.03.17.
