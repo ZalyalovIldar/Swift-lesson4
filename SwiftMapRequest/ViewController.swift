@@ -7,19 +7,32 @@
 //
 
 import UIKit
+import MapKit
+import AddressBook
 
-class ViewController: UIViewController {
-
+class ViewController: UIViewController{
+    
+    @IBOutlet weak var mapView: MKMapView!
+    let locationManager = CLLocationManager()
+    @IBOutlet var viewController: UIView!
+    let apiManager = APIManager()
+    var searchController = UISearchController()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        locationManager.delegate = self
+        createLocation()
+        mapView.showsUserLocation = true;
+        mapView.delegate = self
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    
+    @IBAction func showSearchBar(_ sender: AnyObject) {
+        
+        searchController = UISearchController(searchResultsController: nil)
+        searchController.hidesNavigationBarDuringPresentation = false
+        self.searchController.searchBar.delegate = self
+        present(searchController, animated: true, completion: nil)
     }
-
 
 }
 
