@@ -20,7 +20,6 @@ class Artwork:NSObject {
         self.title = title
         self.locationName = locationName
         self.coordinate = coordinate
-        
         super.init()
     }
     
@@ -32,11 +31,11 @@ class Artwork:NSObject {
 //MARK: - MapKit related methods
 extension Artwork: MKAnnotation {
     
-    func pinTintColor() -> UIColor {
+    func setPinTintColor() -> UIColor {
         return MKPinAnnotationView.purplePinColor()
     }
     
-    func mapItem() -> MKMapItem {
+    func createMapItem() -> MKMapItem {
         let addressDict = [CNPostalAddressStreetKey: subtitle!]
         let placemark = MKPlacemark(coordinate: coordinate, addressDictionary: addressDict)
         let mapItem = MKMapItem(placemark: placemark)

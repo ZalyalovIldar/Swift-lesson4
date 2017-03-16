@@ -12,11 +12,8 @@
 		7C0B1BD41E608DC600E4927E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7C0B1BD21E608DC600E4927E /* Main.storyboard */; };
 		7C0B1BD61E608DC600E4927E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7C0B1BD51E608DC600E4927E /* Assets.xcassets */; };
 		7C0B1BD91E608DC600E4927E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7C0B1BD71E608DC600E4927E /* LaunchScreen.storyboard */; };
-		AE3F3FDC1E61613000D95631 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE3F3FDB1E61613000D95631 /* CoreLocation.framework */; };
-		AE3F3FDE1E61613E00D95631 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE3F3FDD1E61613E00D95631 /* MapKit.framework */; };
 		AE3F3FE21E61823400D95631 /* LocationSearchTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE3F3FE11E61823400D95631 /* LocationSearchTable.swift */; };
 		AE3F3FE41E618EB300D95631 /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE3F3FE31E618EB300D95631 /* APIManager.swift */; };
-		AE3F3FEC1E6190C200D95631 /* Extentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE3F3FEB1E6190C200D95631 /* Extentions.swift */; };
 		AE3F3FEE1E61E83700D95631 /* JSONManger.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE3F3FED1E61E83700D95631 /* JSONManger.swift */; };
 		AE4E06DB1E60AA780074471A /* Artwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE4E06DA1E60AA780074471A /* Artwork.swift */; };
 /* End PBXBuildFile section */
@@ -29,11 +26,8 @@
 		7C0B1BD51E608DC600E4927E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7C0B1BD81E608DC600E4927E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7C0B1BDA1E608DC600E4927E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		AE3F3FDB1E61613000D95631 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
-		AE3F3FDD1E61613E00D95631 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		AE3F3FE11E61823400D95631 /* LocationSearchTable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationSearchTable.swift; sourceTree = "<group>"; };
 		AE3F3FE31E618EB300D95631 /* APIManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIManager.swift; sourceTree = "<group>"; };
-		AE3F3FEB1E6190C200D95631 /* Extentions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extentions.swift; sourceTree = "<group>"; };
 		AE3F3FED1E61E83700D95631 /* JSONManger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONManger.swift; sourceTree = "<group>"; };
 		AE4E06DA1E60AA780074471A /* Artwork.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Artwork.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -43,8 +37,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AE3F3FDE1E61613E00D95631 /* MapKit.framework in Frameworks */,
-				AE3F3FDC1E61613000D95631 /* CoreLocation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -56,7 +48,6 @@
 			children = (
 				7C0B1BCD1E608DC600E4927E /* SwiftMapRequest */,
 				7C0B1BCC1E608DC600E4927E /* Products */,
-				AE3F3FDA1E61613000D95631 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -79,15 +70,6 @@
 				AE3F3FE51E618F1D00D95631 /* Supporting Files */,
 			);
 			path = SwiftMapRequest;
-			sourceTree = "<group>";
-		};
-		AE3F3FDA1E61613000D95631 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				AE3F3FDD1E61613E00D95631 /* MapKit.framework */,
-				AE3F3FDB1E61613000D95631 /* CoreLocation.framework */,
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		AE3F3FE51E618F1D00D95631 /* Supporting Files */ = {
@@ -128,7 +110,6 @@
 			isa = PBXGroup;
 			children = (
 				AE3F3FE31E618EB300D95631 /* APIManager.swift */,
-				AE3F3FEB1E6190C200D95631 /* Extentions.swift */,
 				AE3F3FED1E61E83700D95631 /* JSONManger.swift */,
 			);
 			name = Helper;
@@ -219,7 +200,6 @@
 				7C0B1BD11E608DC600E4927E /* ViewController.swift in Sources */,
 				AE3F3FE21E61823400D95631 /* LocationSearchTable.swift in Sources */,
 				AE3F3FEE1E61E83700D95631 /* JSONManger.swift in Sources */,
-				AE3F3FEC1E6190C200D95631 /* Extentions.swift in Sources */,
 				7C0B1BCF1E608DC600E4927E /* AppDelegate.swift in Sources */,
 				AE4E06DB1E60AA780074471A /* Artwork.swift in Sources */,
 				AE3F3FE41E618EB300D95631 /* APIManager.swift in Sources */,

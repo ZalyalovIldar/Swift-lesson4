@@ -14,12 +14,15 @@ protocol UpdateDataDeligate {
 
 class APIManager {
     
-    var deligate:UpdateDataDeligate!
+    var delegate:UpdateDataDeligate!
     
-    let googleApiURL = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?key=AIzaSyAIPGNUQscK8v_9DH19hOgM_voyFiks6go&language=ru&radius=500000&types=art_gallery&location="
+    let baseURL = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?"
+    let key = "AIzaSyAIPGNUQscK8v_9DH19hOgM_voyFiks6go"
+    
+    let googleApiURL = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?key=AIzaSyBxgfC_wz5EuyEnYmL2_8VcIJ-Amqo61Go&language=ru&radius=500000&types=art_gallery&location="
     
     func artworkFor(lat:Double, lng:Double){
-        let strURL = googleApiURL+"\(lat),\(lng)"
+        let strURL = baseURL + "key=\(key)" + "&language=ru" + "&radius=500000" + "&types=art_gallery" + "&location=\(lat),\(lng)"
         self.setRequest(strURL)
     }
     
@@ -37,7 +40,7 @@ class APIManager {
                     let jsonDict = try JSONSerialization.jsonObject(with: data!, options:.allowFragments) as? [String : AnyObject]
                     let arr = JSONManager.getArtworksArray(from: jsonDict!)
                     DispatchQueue.main.async {
-                        self.deligate.updateMapInfo(artworks: arr)
+                        self.delegate.updateMapInfo(artworks: arr)
                     }
                 }catch let error as NSError{
                     print(error)
