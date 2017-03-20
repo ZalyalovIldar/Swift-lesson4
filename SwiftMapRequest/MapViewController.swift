@@ -11,10 +11,34 @@ import MapKit
 
 class ViewController: UIViewController {
     @IBOutlet weak var mapView: MKMapView!
-    @IBOutlet weak var searchField: UISearchBar!
+    
+    var resultSearchController : UISearchController? = nil
 
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        //Создание экземпляра TableView программным путем
+        let locationSearchTable = storyboard!.instantiateViewController(withIdentifier: "LocationSearchTable") as! LocationSearchTable
+        resultSearchController = UISearchController(searchResultsController: locationSearchTable)
+        resultSearchController?.searchResultsUpdater = locationSearchTable
+        
+        //создание поисковой строки в навигационном контроллере
+        let searchBar = resultSearchController!.searchBar
+        searchBar.sizeToFit()
+        searchBar.placeholder = "Search Article for place"
+        navigationItem.titleView = resultSearchController?.searchBar
+        
+        //настройки для поисковой строки
+        resultSearchController?.hidesNavigationBarDuringPresentation = false//исчезает ли панель навигации6 когда показаны результаты
+        resultSearchController?.dimsBackgroundDuringPresentation = true//полупрозрачный фон при выборе панели поиска
+        definesPresentationContext = true//указывает на модальное наложение
+        
+        locationSearchTable.mapView = mapView
+        
+        //----------------------------------------
+        
+        
         let initialLocation = CLLocation(latitude: 21.282778, longitude: -157.829444)
         let regionalRadius : CLLocationDistance = 1000
         
