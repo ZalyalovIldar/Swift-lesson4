@@ -1,0 +1,6 @@
+framework module Pods_SwiftMapRequest {
+  umbrella header "Pods-SwiftMapRequest-umbrella.h"
+
+  export *
+  module * { export * }
+}
