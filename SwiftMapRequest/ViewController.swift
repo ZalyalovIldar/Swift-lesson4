@@ -13,6 +13,7 @@ import RealmSwift
 
 protocol HandleMapSearch {
     func dropPinZoomIn(placemark:MKPlacemark)
+    func setPinsSavedArtworks(inCity city:City)
 }
 
 class ViewController: UIViewController {
@@ -21,7 +22,6 @@ class ViewController: UIViewController {
     var resultSearchController:UISearchController? = nil
     let locationManager = CLLocationManager()
     let realm = try! Realm()
-    lazy var cities:Results<City> = { self.realm.objects(City.self) }()
     
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var toolBar: UIToolbar!
@@ -65,6 +65,13 @@ extension ViewController:CLLocationManagerDelegate {
 
 //MARK: Search protocol extension
 extension ViewController: HandleMapSearch {
+    func setPinsSavedArtworks(inCity city: City) {
+        let annotations:[Artwork] = Array(city.artworks)
+        self.mapView.addAnnotations(annotations)
+        let location:CLLocation = CLLocation(latitude: city.coordinate.latitude, longitude: city.coordinate.longitude)
+        self.centerMapOnLocation(location)
+    }
+
     func dropPinZoomIn(placemark:MKPlacemark){
         let annotation = MKPointAnnotation()
         annotation.coordinate = placemark.coordinate
@@ -72,11 +79,11 @@ extension ViewController: HandleMapSearch {
         if let city = placemark.locality, let state = placemark.administrativeArea {
             annotation.subtitle = "\(city) \(state)"
         }
-        mapView.addAnnotation(annotation)
+        self.mapView.addAnnotation(annotation)
         let span = MKCoordinateSpanMake(0.05, 0.05)
         let region = MKCoordinateRegionMake(placemark.coordinate, span)
         self.mapView.setRegion(region, animated: true)
-        self.apiManager.artworkFor(cityName:annotation.subtitle ?? "City",cityCoordinate:annotation.coordinate)
+        self.apiManager.artworkFor(cityName:placemark.locality ?? "City", cityRegion:placemark.administrativeArea ?? "Region",cityCoordinate:annotation.coordinate)
     }
 }
 //MARK: MapKit
@@ -134,10 +141,11 @@ extension ViewController: UpdateDataDeligate {
     }
     
     //MARK: Download data from API and set pin in map view
-    func updateMapInfo(cityName:String, cityCoordinate:CLLocationCoordinate2D,artworks: [Artwork]) {
+    func updateMapInfo(cityName:String, cityRegion:String, cityCoordinate:CLLocationCoordinate2D,artworks: [Artwork]) {
         try! realm.write{
             let city = City()
             city.name = cityName
+            city.region = cityRegion
             city.lat = cityCoordinate.latitude
             city.lng = cityCoordinate.longitude
             city.artworks = List(artworks)

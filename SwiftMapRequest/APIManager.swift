@@ -10,7 +10,7 @@ import Foundation
 import MapKit
 
 protocol UpdateDataDeligate {
-    func updateMapInfo(cityName:String, cityCoordinate:CLLocationCoordinate2D,artworks:[Artwork])
+    func updateMapInfo(cityName:String, cityRegion:String, cityCoordinate:CLLocationCoordinate2D,artworks:[Artwork])
 }
 
 class APIManager {
@@ -22,12 +22,12 @@ class APIManager {
     
     let googleApiURL = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?key=AIzaSyBxgfC_wz5EuyEnYmL2_8VcIJ-Amqo61Go&language=ru&radius=500000&types=art_gallery&location="
     
-    func artworkFor(cityName:String, cityCoordinate:CLLocationCoordinate2D){
+    func artworkFor(cityName:String, cityRegion:String ,cityCoordinate:CLLocationCoordinate2D){
         let strURL = baseURL + "key=\(key)" + "&language=ru" + "&radius=500000" + "&types=art_gallery" + "&location=\(cityCoordinate.latitude),\(cityCoordinate.longitude)"
-        self.setRequest(cityName,cityCoordinate,strURL)
+        self.setRequest(cityName, cityRegion,cityCoordinate,strURL)
     }
     
-    func setRequest(_ cityName:String,_ cityCoordinate:CLLocationCoordinate2D,_ strUrl:String) {
+    func setRequest(_ cityName:String,_ cityRegion:String ,_ cityCoordinate:CLLocationCoordinate2D,_ strUrl:String) {
         let url = URL(string:strUrl)
         var request = URLRequest(url: url!)
         request.httpMethod = "GET"
@@ -41,7 +41,7 @@ class APIManager {
                     let jsonDict = try JSONSerialization.jsonObject(with: data!, options:.allowFragments) as? [String : AnyObject]
                     let arr = JSONManager.getArtworksArray(from: jsonDict!)
                     DispatchQueue.main.async {
-                        self.delegate.updateMapInfo(cityName: cityName,cityCoordinate: cityCoordinate,artworks: arr)
+                        self.delegate.updateMapInfo(cityName: cityName, cityRegion: cityRegion,cityCoordinate: cityCoordinate,artworks: arr)
                     }
                 }catch let error as NSError{
                     print(error)

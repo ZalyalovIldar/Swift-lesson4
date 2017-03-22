@@ -26,8 +26,6 @@ class JSONManager {
             artwork.locationName = locationName
             artwork.lat = lat
             artwork.lng = lng
-            //artwork.coordinate = CLLocationCoordinate2D(latitude: lat, longitude: lng)
-            
             artworks.append(artwork)
         }
         return artworks
