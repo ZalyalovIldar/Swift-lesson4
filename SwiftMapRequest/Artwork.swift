@@ -9,21 +9,19 @@
 import Foundation
 import MapKit
 import Contacts
+import RealmSwift
 
-class Artwork:NSObject {
+class Artwork:Object {
     
-    let title: String?
-    let locationName: String
-    let coordinate: CLLocationCoordinate2D
-    
-    init(title: String, locationName: String, coordinate:CLLocationCoordinate2D) {
-        self.title = title
-        self.locationName = locationName
-        self.coordinate = coordinate
-        super.init()
+    dynamic var title: String? = ""
+    dynamic var locationName: String = ""
+    dynamic var lat:Double = 0.0
+    dynamic var lng:Double = 0.0
+    var coordinate: CLLocationCoordinate2D {
+        return CLLocationCoordinate2D(latitude: lat, longitude: lng)
     }
     
-    var subtitle: String? {
+    dynamic var subtitle: String? {
         return locationName
     }
 }

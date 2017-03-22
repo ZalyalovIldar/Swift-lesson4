@@ -21,7 +21,13 @@ class JSONManager {
             let location = geometry["location"] as! [String:Double]
             let lat = location["lat"]! as Double
             let lng = location["lng"]! as Double
-            let artwork = Artwork(title: title, locationName: locationName, coordinate: CLLocationCoordinate2D(latitude: lat, longitude: lng))
+            let artwork = Artwork()
+            artwork.title = title
+            artwork.locationName = locationName
+            artwork.lat = lat
+            artwork.lng = lng
+            //artwork.coordinate = CLLocationCoordinate2D(latitude: lat, longitude: lng)
+            
             artworks.append(artwork)
         }
         return artworks

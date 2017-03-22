@@ -9,6 +9,7 @@
 import UIKit
 import MapKit
 import CoreLocation
+import RealmSwift
 
 protocol HandleMapSearch {
     func dropPinZoomIn(placemark:MKPlacemark)
@@ -19,6 +20,8 @@ class ViewController: UIViewController {
     let apiManager = APIManager()
     var resultSearchController:UISearchController? = nil
     let locationManager = CLLocationManager()
+    let realm = try! Realm()
+    lazy var cities:Results<City> = { self.realm.objects(City.self) }()
     
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var toolBar: UIToolbar!
@@ -45,7 +48,6 @@ extension ViewController:CLLocationManagerDelegate {
         if (currentLocation.horizontalAccuracy > 0) {
             self.locationManager.stopUpdatingLocation()
             let coords = CLLocation(latitude: currentLocation.coordinate.latitude, longitude: currentLocation.coordinate.longitude)
-            self.apiManager.artworkFor(lat: coords.coordinate.latitude, lng: coords.coordinate.longitude)
             self.centerMapOnLocation(coords)
         }
     }
@@ -74,7 +76,7 @@ extension ViewController: HandleMapSearch {
         let span = MKCoordinateSpanMake(0.05, 0.05)
         let region = MKCoordinateRegionMake(placemark.coordinate, span)
         self.mapView.setRegion(region, animated: true)
-        self.apiManager.artworkFor(lat: placemark.coordinate.latitude, lng: placemark.coordinate.longitude)
+        self.apiManager.artworkFor(cityName:annotation.subtitle ?? "City",cityCoordinate:annotation.coordinate)
     }
 }
 //MARK: MapKit
@@ -132,7 +134,15 @@ extension ViewController: UpdateDataDeligate {
     }
     
     //MARK: Download data from API and set pin in map view
-    func updateMapInfo(artworks: [Artwork]) {
+    func updateMapInfo(cityName:String, cityCoordinate:CLLocationCoordinate2D,artworks: [Artwork]) {
+        try! realm.write{
+            let city = City()
+            city.name = cityName
+            city.lat = cityCoordinate.latitude
+            city.lng = cityCoordinate.longitude
+            city.artworks = List(artworks)
+            self.realm.add(city)
+        }
         self.mapView.addAnnotations(artworks)
     }
 }
