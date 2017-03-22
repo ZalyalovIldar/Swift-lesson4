@@ -7,30 +7,39 @@
 //
 
 import Foundation
-import MapKit
+
+import RealmSwift
+import CoreLocation
 
 
-class Sight:NSObject, MKAnnotation {
+
+class Sight: Object {
     
-    let coordinate: CLLocationCoordinate2D
-    let title:String?
-    let locationName:String
+    dynamic var id = UUID().uuidString
+    dynamic var coordinate: Coordinate? = Coordinate(latitude: 0.0, longtitude: 0.0)
+    dynamic var name: String = ""
+    dynamic var address: String = ""
     
-    init(title: String, locationName: String, coordinate: CLLocationCoordinate2D) {
-        self.title = title
-        self.locationName = locationName
-        self.coordinate = coordinate
-        super.init()
+    
+    convenience init(coreCoordinate: CLLocationCoordinate2D, name: String, address: String) {
+        self.init()
+        self.coordinate = Coordinate.init(coordinate: coreCoordinate)
+        self.name = name
+        self.address = address
         
     }
     
-    var subtitle: String? {
-        return locationName
+    convenience init(coordinate: Coordinate, name: String, address: String) {
+        self.init()
+        self.coordinate = coordinate
+        self.name = name
+        self.address = address
+        
     }
-
-
-
-
-
+    
+    override static func primaryKey() -> String? {
+        return "id"
+    }
+    
 
 }

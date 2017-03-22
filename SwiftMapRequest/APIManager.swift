@@ -120,7 +120,7 @@ class APIManager {
                             
                         }
                     }
-                    let sight = Sight(title: sightName!, locationName: address!, coordinate: coordinate!)
+                    let sight = Sight(coreCoordinate: coordinate!, name: sightName!, address: address!)
                     sights.append(sight)
                 }
             }

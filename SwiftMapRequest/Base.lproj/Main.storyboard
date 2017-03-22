@@ -70,5 +70,63 @@
             </objects>
             <point key="canvasLocation" x="236" y="137"/>
         </scene>
+        <!--Test View Controller-->
+        <scene sceneID="FXT-fU-QgY">
+            <objects>
+                <viewController id="bJV-5t-cZ6" customClass="TestViewController" customModule="SwiftMapRequest" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="qxr-Sc-mkv"/>
+                        <viewControllerLayoutGuide type="bottom" id="3ap-T5-iIw"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="yKG-lH-ONb">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="axg-Ga-LNs">
+                                <rect key="frame" x="87.5" y="76" width="200" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="200" id="41c-b6-Fip"/>
+                                    <constraint firstAttribute="height" constant="30" id="ZBb-NS-ZeX"/>
+                                </constraints>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1Jh-W6-Suq">
+                                <rect key="frame" x="87.5" y="130" width="200" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="ozy-az-Hbb"/>
+                                </constraints>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MWf-Op-bLO">
+                                <rect key="frame" x="147" y="205" width="80" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="axg-Ga-LNs" firstAttribute="centerX" secondItem="yKG-lH-ONb" secondAttribute="centerX" id="9pQ-Ii-dyA"/>
+                            <constraint firstItem="1Jh-W6-Suq" firstAttribute="width" secondItem="axg-Ga-LNs" secondAttribute="width" id="Ohs-VY-gVN"/>
+                            <constraint firstItem="1Jh-W6-Suq" firstAttribute="centerX" secondItem="yKG-lH-ONb" secondAttribute="centerX" id="S7U-Yd-1lJ"/>
+                            <constraint firstItem="1Jh-W6-Suq" firstAttribute="top" secondItem="axg-Ga-LNs" secondAttribute="bottom" constant="24" id="VHP-Jm-u1a"/>
+                            <constraint firstItem="axg-Ga-LNs" firstAttribute="top" secondItem="qxr-Sc-mkv" secondAttribute="bottom" constant="56" id="gtk-e2-qzQ"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="firstTextField" destination="axg-Ga-LNs" id="8CS-bf-XsJ"/>
+                        <outlet property="secondTextField" destination="1Jh-W6-Suq" id="OsB-S2-615"/>
+                        <outlet property="timerLabel" destination="MWf-Op-bLO" id="Oou-74-K2W"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="C5q-TI-Zyx" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="236" y="825.33733133433293"/>
+        </scene>
     </scenes>
 </document>
