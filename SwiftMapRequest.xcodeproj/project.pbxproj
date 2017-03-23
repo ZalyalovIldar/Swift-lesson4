@@ -16,7 +16,6 @@
 		E13DD84A1E66F22C00770064 /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E13DD8491E66F22C00770064 /* APIManager.swift */; };
 		E13DD84C1E6C5E9700770064 /* Sight.swift in Sources */ = {isa = PBXBuildFile; fileRef = E13DD84B1E6C5E9700770064 /* Sight.swift */; };
 		E1AD9D321E80926E00FC10CE /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1AD9D311E80926E00FC10CE /* MapViewModel.swift */; };
-		E1B178601E81AEFE003FA97B /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1B1785F1E81AEFE003FA97B /* TestViewController.swift */; };
 		E1B178621E82D361003FA97B /* City.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1B178611E82D361003FA97B /* City.swift */; };
 		E1B178641E82D92F003FA97B /* SightAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1B178631E82D92F003FA97B /* SightAnnotation.swift */; };
 		E1B178661E82EBAF003FA97B /* Coordinate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1B178651E82EBAF003FA97B /* Coordinate.swift */; };
@@ -36,7 +35,6 @@
 		E13DD8491E66F22C00770064 /* APIManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIManager.swift; sourceTree = "<group>"; };
 		E13DD84B1E6C5E9700770064 /* Sight.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Sight.swift; sourceTree = "<group>"; };
 		E1AD9D311E80926E00FC10CE /* MapViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
-		E1B1785F1E81AEFE003FA97B /* TestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
 		E1B178611E82D361003FA97B /* City.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = City.swift; sourceTree = "<group>"; };
 		E1B178631E82D92F003FA97B /* SightAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SightAnnotation.swift; sourceTree = "<group>"; };
 		E1B178651E82EBAF003FA97B /* Coordinate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Coordinate.swift; sourceTree = "<group>"; };
@@ -117,7 +115,6 @@
 			isa = PBXGroup;
 			children = (
 				7C0B1BD01E608DC600E4927E /* ViewController.swift */,
-				E1B1785F1E81AEFE003FA97B /* TestViewController.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -279,7 +276,6 @@
 				E13DD84C1E6C5E9700770064 /* Sight.swift in Sources */,
 				7C0B1BD11E608DC600E4927E /* ViewController.swift in Sources */,
 				E1B178661E82EBAF003FA97B /* Coordinate.swift in Sources */,
-				E1B178601E81AEFE003FA97B /* TestViewController.swift in Sources */,
 				7C0B1BCF1E608DC600E4927E /* AppDelegate.swift in Sources */,
 				E1B178621E82D361003FA97B /* City.swift in Sources */,
 			);
