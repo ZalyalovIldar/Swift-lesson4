@@ -12,8 +12,10 @@
 		7C0B1BD41E608DC600E4927E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7C0B1BD21E608DC600E4927E /* Main.storyboard */; };
 		7C0B1BD61E608DC600E4927E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7C0B1BD51E608DC600E4927E /* Assets.xcassets */; };
 		7C0B1BD91E608DC600E4927E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7C0B1BD71E608DC600E4927E /* LaunchScreen.storyboard */; };
-		C03D23B21E7AF4790091CEE1 /* MapManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03D23B11E7AF4790091CEE1 /* MapManager.swift */; };
 		C03D23B41E7AF48E0091CEE1 /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03D23B31E7AF48E0091CEE1 /* APIManager.swift */; };
+		C0D1CAAD1E80442D00FD443B /* LocationSearchTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D1CAAC1E80442D00FD443B /* LocationSearchTable.swift */; };
+		C0D1CAAF1E804D3500FD443B /* JSONManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D1CAAE1E804D3500FD443B /* JSONManager.swift */; };
+		C0D1CAB11E804D4C00FD443B /* Attraction.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D1CAB01E804D4C00FD443B /* Attraction.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,8 +26,10 @@
 		7C0B1BD51E608DC600E4927E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7C0B1BD81E608DC600E4927E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7C0B1BDA1E608DC600E4927E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C03D23B11E7AF4790091CEE1 /* MapManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapManager.swift; sourceTree = "<group>"; };
 		C03D23B31E7AF48E0091CEE1 /* APIManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIManager.swift; sourceTree = "<group>"; };
+		C0D1CAAC1E80442D00FD443B /* LocationSearchTable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationSearchTable.swift; sourceTree = "<group>"; };
+		C0D1CAAE1E804D3500FD443B /* JSONManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONManager.swift; sourceTree = "<group>"; };
+		C0D1CAB01E804D4C00FD443B /* Attraction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Attraction.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,8 +66,9 @@
 				C03D23B01E7AF1080091CEE1 /* Controller */,
 				C03D23AF1E7AF0F80091CEE1 /* View */,
 				C03D23AE1E7AF0EC0091CEE1 /* Modal */,
-				C03D23B11E7AF4790091CEE1 /* MapManager.swift */,
 				C03D23B31E7AF48E0091CEE1 /* APIManager.swift */,
+				C0D1CAAE1E804D3500FD443B /* JSONManager.swift */,
+				C0D1CAB01E804D4C00FD443B /* Attraction.swift */,
 			);
 			path = SwiftMapRequest;
 			sourceTree = "<group>";
@@ -71,7 +76,6 @@
 		C03D23AE1E7AF0EC0091CEE1 /* Modal */ = {
 			isa = PBXGroup;
 			children = (
-				7C0B1BD01E608DC600E4927E /* MapViewController.swift */,
 				7C0B1BD51E608DC600E4927E /* Assets.xcassets */,
 				7C0B1BDA1E608DC600E4927E /* Info.plist */,
 			);
@@ -90,6 +94,8 @@
 		C03D23B01E7AF1080091CEE1 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				7C0B1BD01E608DC600E4927E /* MapViewController.swift */,
+				C0D1CAAC1E80442D00FD443B /* LocationSearchTable.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -168,8 +174,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				C03D23B41E7AF48E0091CEE1 /* APIManager.swift in Sources */,
+				C0D1CAAF1E804D3500FD443B /* JSONManager.swift in Sources */,
+				C0D1CAAD1E80442D00FD443B /* LocationSearchTable.swift in Sources */,
+				C0D1CAB11E804D4C00FD443B /* Attraction.swift in Sources */,
 				7C0B1BD11E608DC600E4927E /* MapViewController.swift in Sources */,
-				C03D23B21E7AF4790091CEE1 /* MapManager.swift in Sources */,
 				7C0B1BCF1E608DC600E4927E /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
