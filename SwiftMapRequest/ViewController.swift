@@ -17,10 +17,12 @@ class ViewController: UIViewController{
     let locationManager = CLLocationManager()
     var selectedPin: MKPlacemark? = nil
     var resultSearchController: UISearchController? = nil
+    let realmMenagment = Management()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-    
+        
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
         locationManager.requestWhenInUseAuthorization()
@@ -42,7 +44,7 @@ class ViewController: UIViewController{
         locationSearchTable.handleMapSearchDelegate = self
         
         dropPinZoomIn(placemark: MKPlacemark.init(coordinate: CLLocationCoordinate2D.init(latitude: 55.7887400, longitude: 49.1221400), addressDictionary: [:]))
-     
+        
     }
     
     func getDirections(){
@@ -56,6 +58,11 @@ class ViewController: UIViewController{
     
     @IBAction func myPositionButtonAction(_ sender: UIButton) {
         locationManager.requestLocation()
+    }
+    
+    @IBAction func lastButtonAction(_ sender: UIButton) {
+        let city = realmMenagment.getNeededCityAndAttractionsFromRealm()
+        dropPinZoomIn(placemark: (placemark: MKPlacemark.init(coordinate: CLLocationCoordinate2D.init(latitude: city.latitude, longitude: city.longitude), addressDictionary: [:])), attractionsArr: Array(city.attractions))
     }
 }
 
@@ -90,6 +97,8 @@ extension ViewController : CLLocationManagerDelegate {
 extension ViewController: HandleMapSearch {
     func dropPinZoomIn(placemark: MKPlacemark){
         selectedPin = placemark
+        
+        
         mapView.removeAnnotations(mapView.annotations)
         let annotation = MKPointAnnotation()
         annotation.coordinate = placemark.coordinate
@@ -114,15 +123,47 @@ extension ViewController: HandleMapSearch {
         let jsonReaderResult = JSONReader.jsonReader(usableData: LhttpRequestResult)
         guard let LjsonReaderResult = jsonReaderResult else{ErrorAllert(alertTitle: "Problems with json", message: "Plese try later", actionTitle: "ok", controller: UIApplication.getTopViewController()!); return}
         
+        var attractionsArr: [Attraction] = []
+        let city = City()
+        city.latitude = placemark.coordinate.latitude
+        city.longitude = placemark.coordinate.longitude
         
         for place in LjsonReaderResult {
             let coordinate = CLLocationCoordinate2D.init(latitude: place.latitude, longitude: place.longitude)
             let dataForAnnotation = AnnotationDataStruct.init(placeName: place.name, address: place.address, coordinate: coordinate)
+            let attraction = Attraction()
+            attraction.latitude = dataForAnnotation.coordinate.latitude
+            attraction.longitude = dataForAnnotation.coordinate.longitude
+            attraction.placeName = dataForAnnotation.placeName
+            attraction.address = dataForAnnotation.address
+            attractionsArr.append(attraction)
             mapView.addAnnotation(GetAnnotation(data: dataForAnnotation))
         }
         
+        realmMenagment.saveCityWithAttractionOnRealm(city: city, attractionsArr: attractionsArr)
+    }
+    
+    func dropPinZoomIn(placemark: MKPlacemark, attractionsArr: [Attraction]){
+        selectedPin = placemark
         
+        mapView.removeAnnotations(mapView.annotations)
+        let annotation = MKPointAnnotation()
+        annotation.coordinate = placemark.coordinate
+        annotation.title = placemark.name
+        if let city = placemark.locality,
+            let state = placemark.administrativeArea {
+            annotation.subtitle = "\(city) \(state)"
+        }
+        mapView.addAnnotation(annotation)
+        let span = MKCoordinateSpanMake(0.05, 0.05)
+        let region = MKCoordinateRegionMake(placemark.coordinate, span)
+        mapView.setRegion(region, animated: true)
         
+        for attraction in attractionsArr {
+            let coordinate = CLLocationCoordinate2D.init(latitude: attraction.latitude, longitude: attraction.longitude)
+            let dataForAnnotation = AnnotationDataStruct.init(placeName: attraction.placeName, address: attraction.address, coordinate: coordinate)
+            mapView.addAnnotation(GetAnnotation(data: dataForAnnotation))
+        }
     }
 }
 

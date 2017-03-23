@@ -1,5 +1,5 @@
 //
-//  City.swift
+//  Attraction.swift
 //  SwiftMapRequest
 //
 //  Created by Rustam N on 22.03.17.
@@ -10,15 +10,10 @@ import UIKit
 import RealmSwift
 import MapKit
 
-class City: Object {
+class Attraction: Object {
     dynamic var latitude: Double = 0
     dynamic var longitude: Double = 0
-  //  dynamic var addressDictionary: [AnyHashable: Any]? = nil
-    dynamic var name = ""
-    dynamic var state = ""
+    dynamic var placeName: String = ""
+    dynamic var address: String = ""
     
-
-    var attractions = List<Attraction>()
-    
-  
 }
