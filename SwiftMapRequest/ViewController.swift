@@ -9,7 +9,7 @@ import MapKit
 import UIKit
 
 protocol HandleMapSearch {
-    func dropPinZoomIn(placemark: MKPlacemark)
+    func dropPinZoomIn(with placemark: MKPlacemark)
 }
 
 
@@ -18,7 +18,7 @@ class ViewController: UIViewController{
     let locationManager = CLLocationManager()
     var selectedPin: MKPlacemark? = nil
     var resultSearchController: UISearchController? = nil
-    let realmMenagment = Management()
+    let realmManager = RealmManagement()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,8 +43,7 @@ class ViewController: UIViewController{
         locationSearchTable.mapView = mapView
         locationSearchTable.handleMapSearchDelegate = self
         
-        dropPinZoomIn(placemark: MKPlacemark.init(coordinate: CLLocationCoordinate2D.init(latitude: 55.7887400, longitude: 49.1221400), addressDictionary: [:]))
-        
+        dropPinZoomIn(with: MKPlacemark.init(coordinate: CLLocationCoordinate2D.init(latitude: 55.7887400, longitude: 49.1221400), addressDictionary: [:]))
     }
 
     
@@ -62,8 +61,8 @@ class ViewController: UIViewController{
     }
     
     @IBAction func lastButtonAction(_ sender: UIButton) {
-        let city = realmMenagment.getNeededCityAndAttractionsFromRealm()
-        dropPinZoomIn(placemark: (placemark: MKPlacemark.init(coordinate: CLLocationCoordinate2D.init(latitude: city.latitude, longitude: city.longitude), addressDictionary: [:])), attractionsArr: Array(city.attractions))
+        let city = realmManager.getNeededCityAndAttractionsFromRealm()
+        dropPinZoomIn(with: (placemark: MKPlacemark.init(coordinate: CLLocationCoordinate2D.init(latitude: city.latitude, longitude: city.longitude), addressDictionary: [:])), attractionsArr: Array(city.attractions))
     }
 }
 
@@ -95,7 +94,7 @@ extension ViewController : CLLocationManagerDelegate {
 
 
 extension ViewController: HandleMapSearch, DataTaskDelegate {
-    func dropPinZoomIn(placemark: MKPlacemark){
+    func dropPinZoomIn(with placemark: MKPlacemark){
         selectedPin = placemark
         mapView.removeAnnotations(mapView.annotations)
         let annotation = MKPointAnnotation()
@@ -140,10 +139,10 @@ extension ViewController: HandleMapSearch, DataTaskDelegate {
             mapView.addAnnotation(GetAnnotation(data: dataForAnnotation))
             
         }
-        realmMenagment.saveCityWithAttractionOnRealm(city: city, attractionsArr: attractionsArr)
+        realmManager.save(city: city, attractionsArr: attractionsArr)
     }
     
-    func dropPinZoomIn(placemark: MKPlacemark, attractionsArr: [Attraction]){
+    func dropPinZoomIn(with placemark: MKPlacemark, attractionsArr: [Attraction]){
         selectedPin = placemark
         
         mapView.removeAnnotations(mapView.annotations)

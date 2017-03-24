@@ -11,17 +11,15 @@ import MapKit
 import UIKit
 import RealmSwift
 
-class Management: NSObject {
+class RealmManagement: NSObject {
     let realm = try! Realm()
     
-    func saveCityWithAttractionOnRealm(city: City, attractionsArr: [Attraction]) {
-        for attraction in attractionsArr{
-            city.attractions.append(attraction)
-        }
-        let lists = realm.objects(City.self)
+    func save(city: City, attractionsArr: [Attraction]) {
+        attractionsArr.forEach{city.attractions.append($0)}
+        let citysArr = realm.objects(City.self)
         try! realm.write {
-            if lists.count > 1 {
-                realm.delete(lists[0])
+            if citysArr.count > 1 {
+                realm.delete(citysArr[0])
             }
             realm.add(city)
         }
@@ -29,8 +27,8 @@ class Management: NSObject {
     }
     
     func getNeededCityAndAttractionsFromRealm() -> City {
-        let lists = realm.objects(City.self)
-        return lists[0]
+        let citysArr = realm.objects(City.self)
+        return citysArr[0]
     }
     
 }
