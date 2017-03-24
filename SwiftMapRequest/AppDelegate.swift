@@ -17,32 +17,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
-        //        let attractions1 = Attraction(value: ["Attraction1"])
-        //        let attractions2 = Attraction(value: ["Attraction2"])
-        //        let city = City()
-        //        city.cityName = "CityName!"
-        //        city.attractions.append(contentsOf: [attractions1, attractions2])
-        //
-        
-     //   let realm = try! Realm()
-        
-        //        try! realm.write {
-        //            realm.add(city)
-        //        }
-        
-        
-      //  realm.deleteAll()
-        
-        
-        
-        
-        
-        //var lists : Results<City>!
-        
-//        let lists = realm.objects(City.self)
-//        print(lists)
-//        
-        
         return true
     }
     

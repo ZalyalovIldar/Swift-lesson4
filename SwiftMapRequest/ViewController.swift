@@ -12,13 +12,13 @@ protocol HandleMapSearch {
     func dropPinZoomIn(placemark: MKPlacemark)
 }
 
+
 class ViewController: UIViewController{
     @IBOutlet weak var mapView: MKMapView!
     let locationManager = CLLocationManager()
     var selectedPin: MKPlacemark? = nil
     var resultSearchController: UISearchController? = nil
     let realmMenagment = Management()
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,6 +46,7 @@ class ViewController: UIViewController{
         dropPinZoomIn(placemark: MKPlacemark.init(coordinate: CLLocationCoordinate2D.init(latitude: 55.7887400, longitude: 49.1221400), addressDictionary: [:]))
         
     }
+
     
     func getDirections(){
         if let selectedPin = selectedPin {
@@ -65,6 +66,7 @@ class ViewController: UIViewController{
         dropPinZoomIn(placemark: (placemark: MKPlacemark.init(coordinate: CLLocationCoordinate2D.init(latitude: city.latitude, longitude: city.longitude), addressDictionary: [:])), attractionsArr: Array(city.attractions))
     }
 }
+
 
 
 
@@ -92,13 +94,9 @@ extension ViewController : CLLocationManagerDelegate {
 
 
 
-
-
-extension ViewController: HandleMapSearch {
+extension ViewController: HandleMapSearch, DataTaskDelegate {
     func dropPinZoomIn(placemark: MKPlacemark){
         selectedPin = placemark
-        
-        
         mapView.removeAnnotations(mapView.annotations)
         let annotation = MKPointAnnotation()
         annotation.coordinate = placemark.coordinate
@@ -113,20 +111,22 @@ extension ViewController: HandleMapSearch {
         mapView.setRegion(region, animated: true)
         
         
-        let cordinata = CordinateWithRadiuSstruct.init(latitude: placemark.coordinate.latitude, longitude: placemark.coordinate.longitude, radius: 20000)
+        let cordinate = CordinateWithRadiuSstruct.init(latitude: placemark.coordinate.latitude, longitude: placemark.coordinate.longitude, radius: 20000)
+        let urlString = "\(Constants.baseUrl)location=\(cordinate.latitude),\(cordinate.longitude)&radius=\(cordinate.radius)&types=point_of_interest&key=\(Constants.key)"
+        let encodingUrl = URL(string: urlString.addingPercentEncoding( withAllowedCharacters: .urlQueryAllowed)!)
+        HttpController.doGetRequest(encodingUrl!, viewController: self, whenComplete: self)
+    }
+    
+    func getResponce(_ result: Data?) {
+        guard let httpRequestResult = result else {ErrorAllert(alertTitle: "Connection problems", message: "Check your internet", actionTitle: "ok", controller: UIApplication.getTopViewController()!); return}
         
-        
-        let httpRequestResult = HTTPRequest.httpRequest(cordinate: cordinata)
-        guard let LhttpRequestResult = httpRequestResult else{ErrorAllert(alertTitle: "Connection problems", message: "Plese try later", actionTitle: "ok", controller: UIApplication.getTopViewController()!); return}
-        
-        
-        let jsonReaderResult = JSONReader.jsonReader(usableData: LhttpRequestResult)
-        guard let LjsonReaderResult = jsonReaderResult else{ErrorAllert(alertTitle: "Problems with json", message: "Plese try later", actionTitle: "ok", controller: UIApplication.getTopViewController()!); return}
+        let jsonReaderResult = JSONReader.jsonReader(usableData: httpRequestResult)
+        guard let LjsonReaderResult = jsonReaderResult else{ErrorAllert(alertTitle: "Some problems with json", message: "Plese try later", actionTitle: "ok", controller: UIApplication.getTopViewController()!); return}
         
         var attractionsArr: [Attraction] = []
         let city = City()
-        city.latitude = placemark.coordinate.latitude
-        city.longitude = placemark.coordinate.longitude
+        city.latitude = selectedPin!.coordinate.latitude
+        city.longitude = selectedPin!.coordinate.longitude
         
         for place in LjsonReaderResult {
             let coordinate = CLLocationCoordinate2D.init(latitude: place.latitude, longitude: place.longitude)
@@ -138,8 +138,8 @@ extension ViewController: HandleMapSearch {
             attraction.address = dataForAnnotation.address
             attractionsArr.append(attraction)
             mapView.addAnnotation(GetAnnotation(data: dataForAnnotation))
+            
         }
-        
         realmMenagment.saveCityWithAttractionOnRealm(city: city, attractionsArr: attractionsArr)
     }
     

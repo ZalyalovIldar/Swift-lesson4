@@ -13,7 +13,6 @@ import MapKit
 class City: Object {
     dynamic var latitude: Double = 0
     dynamic var longitude: Double = 0
-  //  dynamic var addressDictionary: [AnyHashable: Any]? = nil
     dynamic var name = ""
     dynamic var state = ""
     

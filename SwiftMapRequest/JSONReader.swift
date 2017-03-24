@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 class JSONReader: NSObject {
     
@@ -42,4 +43,6 @@ class JSONReader: NSObject {
         }
         return resultArr
     }
+    
+    
 }

@@ -6,7 +6,7 @@
 //  Copyright © 2017 com.personal.ildar. All rights reserved.
 //
 
-//
+
 import MapKit
 import UIKit
 import RealmSwift

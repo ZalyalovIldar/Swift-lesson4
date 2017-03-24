@@ -34,3 +34,8 @@ struct AnnotationDataStruct {
         self.coordinate = coordinate
     }
 }
+
+struct Constants {
+    static let key = "AIzaSyBxgfC_wz5EuyEnYmL2_8VcIJ-Amqo61Go"
+    static let baseUrl = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?"
+}
