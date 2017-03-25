@@ -14,8 +14,7 @@ class LocationSearchTable: UITableViewController {
     var handleMapSearchDelegate:HandleMapSearch? = nil
     var matchingItems:[MKMapItem] = []
     var mapView: MKMapView? = nil
-    let realm = try! Realm()
-    lazy var cities:Results<City> = { self.realm.objects(City.self) }()
+    lazy var cities:Results<City> = { realm.objects(City.self) }()
     var city:City? {
         return cities.last
     }
@@ -92,13 +91,11 @@ extension LocationSearchTable {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if city != nil {
-            if indexPath.row == 0 {
-                let city:City = cities.last!
-                self.handleMapSearchDelegate?.setPinsSavedArtworks(inCity: city)
-                self.dismiss(animated: true, completion: nil)
-                return
-            }
+        if city != nil && indexPath.row == 0{
+            let city:City = cities.last!
+            self.handleMapSearchDelegate?.setPinsSavedArtworks(in: city)
+            self.dismiss(animated: true, completion: nil)
+            return
         }
         var selectedItem:MKPlacemark
         if city != nil {
@@ -106,7 +103,7 @@ extension LocationSearchTable {
         }else {
             selectedItem = matchingItems[indexPath.row].placemark
         }
-        self.handleMapSearchDelegate?.dropPinZoomIn(placemark: selectedItem)
+        self.handleMapSearchDelegate?.toPinZoomIn(with: selectedItem)
         self.dismiss(animated: true, completion: nil)
     }
 }

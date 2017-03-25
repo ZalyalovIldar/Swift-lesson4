@@ -12,8 +12,8 @@ import CoreLocation
 import RealmSwift
 
 protocol HandleMapSearch {
-    func dropPinZoomIn(placemark:MKPlacemark)
-    func setPinsSavedArtworks(inCity city:City)
+    func toPinZoomIn(with placemark:MKPlacemark)
+    func setPinsSavedArtworks(in city:City)
 }
 
 class ViewController: UIViewController {
@@ -21,7 +21,6 @@ class ViewController: UIViewController {
     let apiManager = APIManager()
     var resultSearchController:UISearchController? = nil
     let locationManager = CLLocationManager()
-    let realm = try! Realm()
     
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var toolBar: UIToolbar!
@@ -46,9 +45,22 @@ extension ViewController:CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let currentLocation = locations.last else {return}
         if (currentLocation.horizontalAccuracy > 0) {
-            self.locationManager.stopUpdatingLocation()
-            let coords = CLLocation(latitude: currentLocation.coordinate.latitude, longitude: currentLocation.coordinate.longitude)
-            self.centerMapOnLocation(coords)
+            if Reachability.isConnectedToNetwork() {
+                let geoCoder = CLGeocoder()
+                geoCoder.reverseGeocodeLocation(currentLocation, completionHandler: { (placemarks, error) in
+                    var placeMark: CLPlacemark!
+                    placeMark = placemarks?[0]
+                    guard let cityName = placeMark.addressDictionary!["City"] as? String else{return}
+                    guard let country = placeMark.addressDictionary!["Country"] as? String else {return}
+                    let city = City()
+                    city.name = cityName
+                    city.region = country
+                    city.lat = currentLocation.coordinate.latitude
+                    city.lng = currentLocation.coordinate.longitude
+                    self.apiManager.artworkFor(with: city)
+                    self.locationManager.stopUpdatingLocation()
+                })
+            }
         }
     }
     
@@ -65,14 +77,14 @@ extension ViewController:CLLocationManagerDelegate {
 
 //MARK: Search protocol extension
 extension ViewController: HandleMapSearch {
-    func setPinsSavedArtworks(inCity city: City) {
+    func setPinsSavedArtworks(in city: City) {
         let annotations:[Artwork] = Array(city.artworks)
         self.mapView.addAnnotations(annotations)
         let location:CLLocation = CLLocation(latitude: city.coordinate.latitude, longitude: city.coordinate.longitude)
         self.centerMapOnLocation(location)
     }
 
-    func dropPinZoomIn(placemark:MKPlacemark){
+    func toPinZoomIn(with placemark:MKPlacemark){
         let annotation = MKPointAnnotation()
         annotation.coordinate = placemark.coordinate
         annotation.title = placemark.name
@@ -83,7 +95,12 @@ extension ViewController: HandleMapSearch {
         let span = MKCoordinateSpanMake(0.05, 0.05)
         let region = MKCoordinateRegionMake(placemark.coordinate, span)
         self.mapView.setRegion(region, animated: true)
-        self.apiManager.artworkFor(cityName:placemark.locality ?? "City", cityRegion:placemark.administrativeArea ?? "Region",cityCoordinate:annotation.coordinate)
+        let city = City()
+        city.name = placemark.locality ?? "City"
+        city.region = placemark.administrativeArea ?? "Region"
+        city.lat = annotation.coordinate.latitude
+        city.lng = annotation.coordinate.longitude
+        self.apiManager.artworkFor(with: city)
     }
 }
 //MARK: MapKit
@@ -118,7 +135,7 @@ extension ViewController: MKMapViewDelegate {
 }
 
 //MARK: Helper
-extension ViewController: UpdateDataDeligate {
+extension ViewController: UpdateDataDelegate {
     func configureMap() {
         self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
         self.locationManager.requestWhenInUseAuthorization()
@@ -141,15 +158,15 @@ extension ViewController: UpdateDataDeligate {
     }
     
     //MARK: Download data from API and set pin in map view
-    func updateMapInfo(cityName:String, cityRegion:String, cityCoordinate:CLLocationCoordinate2D,artworks: [Artwork]) {
+    func updateMapInfo(city:City,artworks: [Artwork]) {
         try! realm.write{
-            let city = City()
-            city.name = cityName
-            city.region = cityRegion
-            city.lat = cityCoordinate.latitude
-            city.lng = cityCoordinate.longitude
+            let newCity = City()
+            newCity.name = city.name
+            newCity.region = city.region
+            newCity.lat = city.lat
+            newCity.lng = city.lng
             city.artworks = List(artworks)
-            self.realm.add(city)
+            realm.add(city)
         }
         self.mapView.addAnnotations(artworks)
     }
