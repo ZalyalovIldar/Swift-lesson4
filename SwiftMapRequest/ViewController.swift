@@ -12,8 +12,8 @@ import CoreLocation
 import RealmSwift
 
 protocol HandleMapSearch {
-    func toPinZoomIn(with placemark:MKPlacemark)
-    func setPinsSavedArtworks(in city:City)
+    func toPinZoomIn(with placemark:MKPlacemark) ->Void
+    func setPinsSavedArtworks(in city:City) -> Void
 }
 
 class ViewController: UIViewController {
@@ -42,7 +42,7 @@ class ViewController: UIViewController {
 
 //MARK: - CLLocationManagerDelegate
 extension ViewController:CLLocationManagerDelegate {
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) ->Void {
         guard let currentLocation = locations.last else {return}
         if (currentLocation.horizontalAccuracy > 0) {
             if Reachability.isConnectedToNetwork() {
@@ -64,11 +64,11 @@ extension ViewController:CLLocationManagerDelegate {
         }
     }
     
-    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) ->Void {
         print("Can't get location")
     }
     
-    func centerMapOnLocation(_ location: CLLocation) {
+    func centerMapOnLocation(_ location: CLLocation) -> Void {
         let regionRadius: CLLocationDistance = 500
         let coordinateRegion = MKCoordinateRegionMakeWithDistance(location.coordinate, regionRadius * 2.0, regionRadius * 2.0)
         self.mapView.setRegion(coordinateRegion, animated: true)
@@ -77,14 +77,14 @@ extension ViewController:CLLocationManagerDelegate {
 
 //MARK: Search protocol extension
 extension ViewController: HandleMapSearch {
-    func setPinsSavedArtworks(in city: City) {
+    func setPinsSavedArtworks(in city: City) -> Void {
         let annotations:[Artwork] = Array(city.artworks)
         self.mapView.addAnnotations(annotations)
         let location:CLLocation = CLLocation(latitude: city.coordinate.latitude, longitude: city.coordinate.longitude)
         self.centerMapOnLocation(location)
     }
 
-    func toPinZoomIn(with placemark:MKPlacemark){
+    func toPinZoomIn(with placemark:MKPlacemark) -> Void {
         let annotation = MKPointAnnotation()
         annotation.coordinate = placemark.coordinate
         annotation.title = placemark.name
@@ -126,7 +126,7 @@ extension ViewController: MKMapViewDelegate {
         return nil
     }
     
-    func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+    func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) -> Void {
         guard let location:Artwork = view.annotation as! Artwork? else {return}
         let launchOptions = [MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeDriving]
         location.createMapItem().openInMaps(launchOptions: launchOptions)
@@ -136,13 +136,13 @@ extension ViewController: MKMapViewDelegate {
 
 //MARK: Helper
 extension ViewController: UpdateDataDelegate {
-    func configureMap() {
+    func configureMap() ->Void {
         self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
         self.locationManager.requestWhenInUseAuthorization()
         self.locationManager.startUpdatingLocation()
     }
     
-    func initSearchController () {
+    func initSearchController () -> Void {
         let locationSearchTable = storyboard!.instantiateViewController(withIdentifier: "LocationSearchTable") as! LocationSearchTable
         self.resultSearchController = UISearchController(searchResultsController: locationSearchTable)
         self.resultSearchController?.searchResultsUpdater = locationSearchTable
@@ -158,7 +158,7 @@ extension ViewController: UpdateDataDelegate {
     }
     
     //MARK: Download data from API and set pin in map view
-    func updateMapInfo(city:City,artworks: [Artwork]) {
+    func updateMapInfo(city:City,artworks: [Artwork]) -> Void {
         try! realm.write{
             let newCity = City()
             newCity.name = city.name

@@ -42,7 +42,7 @@ class LocationSearchTable: UITableViewController {
 }
 
 extension LocationSearchTable : UISearchResultsUpdating {
-    func updateSearchResults(for searchController: UISearchController) {
+    func updateSearchResults(for searchController: UISearchController) ->Void {
         guard let mapView = mapView, let searchBarText = searchController.searchBar.text else { return }
         let request = MKLocalSearchRequest()
         request.naturalLanguageQuery = searchBarText

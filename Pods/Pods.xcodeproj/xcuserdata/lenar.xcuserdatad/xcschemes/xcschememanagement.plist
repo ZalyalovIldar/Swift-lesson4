@@ -9,6 +9,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>Pods-SwiftMapRequestTests.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Realm.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -23,6 +28,11 @@
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
 		<key>6C5119A85D85A763E33D10C9F4F2C36B</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>C0A2BA5D789C378670AA70FA78A9B55A</key>
 		<dict>
 			<key>primary</key>
 			<true/>

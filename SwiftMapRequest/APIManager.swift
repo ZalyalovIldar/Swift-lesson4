@@ -22,12 +22,12 @@ class APIManager {
     
     let googleApiURL = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?key=AIzaSyBxgfC_wz5EuyEnYmL2_8VcIJ-Amqo61Go&language=ru&radius=500000&types=art_gallery&location="
     
-    func artworkFor(with city:City){
+    func artworkFor(with city:City) -> Void {
         let strURL = baseURL + "key=\(key)" + "&language=ru" + "&radius=500000" + "&types=art_gallery" + "&location=\(city.lat),\(city.lng)"
         self.setGetRequest(city,strURL)
     }
     
-    func setGetRequest(_ city:City,_ strUrl:String) {
+    func setGetRequest(_ city:City,_ strUrl:String) -> Void {
         let url = URL(string:strUrl)
         var request = URLRequest(url: url!)
         request.httpMethod = "GET"

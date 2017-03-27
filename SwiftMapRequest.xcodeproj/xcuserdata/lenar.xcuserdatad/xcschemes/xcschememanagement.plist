@@ -4,7 +4,7 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>SwiftMapRequest.xcscheme</key>
+		<key>SwiftMapRequest.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>0</integer>
@@ -13,6 +13,11 @@
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
 		<key>7C0B1BCA1E608DC600E4927E</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>AE0895461E891C36005AC260</key>
 		<dict>
 			<key>primary</key>
 			<true/>

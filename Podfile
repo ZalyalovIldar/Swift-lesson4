@@ -2,9 +2,12 @@
 # platform :ios, '9.0'
 
 target 'SwiftMapRequest' do
-  # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
-  use_frameworks!
-  # Pods for SwiftMapRequest
-pod 'RealmSwift'
+  	use_frameworks!
+	pod 'RealmSwift'
+end
+
+target 'SwiftMapRequestTests' do
+  	use_frameworks!
+	pod 'RealmSwift'
 
 end
