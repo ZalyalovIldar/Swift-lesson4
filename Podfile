@@ -11,3 +11,12 @@ target 'SwiftMapRequest' do
 
 
 end
+
+target 'SwiftMapRequestTests' do
+   use_frameworks!
+   pod 'RealmSwift', '~> 2.4'
+   pod 'ReactiveCocoa', '~> 5.0.0'
+   
+end
+
+

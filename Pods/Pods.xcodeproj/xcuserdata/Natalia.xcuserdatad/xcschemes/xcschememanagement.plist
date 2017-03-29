@@ -9,6 +9,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>Pods-SwiftMapRequestTests.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>ReactiveCocoa.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -58,6 +63,11 @@
 			<true/>
 		</dict>
 		<key>885AD2DF6D64B2F6BA653284C8A79CC4</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>DE30BCCB00FC57D85C6AFC6A356707FC</key>
 		<dict>
 			<key>primary</key>
 			<true/>
